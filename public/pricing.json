@@ -1,0 +1,121 @@
+{
+  "products": [
+    {
+      "product_id": 1,
+      "name": "Internet"
+    },
+    {
+      "product_id": 2,
+      "name": "Telewizja"
+    },
+    {
+      "product_id": 3,
+      "name": "Abonament telefoniczny"
+    },
+    {
+      "product_id": 4,
+      "name": "Dekoder 4K",
+      "required": [2]
+    }
+  ],
+  "pricing": [
+    {
+      "year": 2023,
+      "prices": [
+        { "product_id": 1, "price": 39 },
+        { "product_id": 2, "price": 49 },
+        { "product_id": 3, "price": 29 },
+        { "product_id": 4, "price": 29 }
+      ]
+    },
+    {
+      "year": 2024,
+      "prices": [
+        { "product_id": 1, "price": 49 },
+        { "product_id": 2, "price": 49 },
+        { "product_id": 3, "price": 29 },
+        { "product_id": 4, "price": 29 }
+      ]
+    },
+    {
+      "year": 2025,
+      "prices": [
+        { "product_id": 1, "price": 59 },
+        { "product_id": 2, "price": 59 },
+        { "product_id": 3, "price": 29 },
+        { "product_id": 4, "price": 29 }
+      ]
+    }
+  ],
+  "bundles": [
+    {
+      "year": 2023,
+      "packages": [
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja",
+          "products": [1, 2],
+          "price": 79
+        },
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja + Dekoder (za darmo)",
+          "products": [1, 2, 4],
+          "price": 79
+        },
+        {
+          "package_id": 2,
+          "name": "Internet + Abonament telefoniczny",
+          "products": [1, 3],
+          "price": 64
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "packages": [
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja",
+          "products": [1, 2],
+          "price": 79
+        },
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja + Dekoder (za darmo)",
+          "products": [1, 2, 4],
+          "price": 79
+        },
+        {
+          "package_id": 2,
+          "name": "Internet + Abonament telefoniczny",
+          "products": [1, 3],
+          "price": 64
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "packages": [
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja",
+          "products": [1, 2],
+          "price": 79
+        },
+        {
+          "package_id": 1,
+          "name": "Internet + Telewizja + Dekoder (za darmo)",
+          "products": [1, 2, 4],
+          "price": 79
+        },
+        {
+          "package_id": 2,
+          "name": "Internet + Abonament telefoniczny",
+          "products": [1, 3],
+          "price": 64
+        }
+      ]
+    }
+  ]
+}
