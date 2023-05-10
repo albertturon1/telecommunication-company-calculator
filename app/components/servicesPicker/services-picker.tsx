@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 
-import SectionLabel from "@components/misc/SectionLabel";
 import { Separator } from "@components/separator";
 import { Product, ShopResponse } from "@interfaces/IPricing";
 
 import ServicesPickerProducts from "./services-picker-products";
 import ServicesPickerSummary from "./services-picker-summary";
 import YearSelect from "../year-select";
+import SectionLabel from "@components/misc/section-label";
 
 export const ServicesPicker = ({
   pricelist,
