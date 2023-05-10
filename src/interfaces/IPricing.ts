@@ -1,7 +1,7 @@
 export type Product = {
   product_id: number;
   name: string;
-  required?: number[]; //foreign product id
+  required: number[]; //foreign product id
 };
 
 export type ProductPrice = {
@@ -19,7 +19,7 @@ export type BundleYear = {
 };
 
 export type Package = {
-  id: number;
+  package_id: number;
   name: string;
   products: number[];
   price: number;
