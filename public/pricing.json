@@ -78,7 +78,7 @@
         },
         {
           "package_id": 2,
-          "name": "Internet + Television + Decoder (free of charge)",
+          "name": "Internet + Television + Decoder (free)",
           "products": [1, 2, 4],
           "price": 79
         },
@@ -107,7 +107,7 @@
         },
         {
           "package_id": 2,
-          "name": "Internet + Television + Decoder (free of charge)",
+          "name": "Internet + Television + Decoder (free)",
           "products": [1, 2, 4],
           "price": 79
         },
@@ -120,8 +120,8 @@
         {
           "package_id": 4,
           "name": "Telephone subscription + Smartphone",
-          "products": [2, 5],
-          "price": 89
+          "products": [3, 5],
+          "price": 74
         }
       ]
     },
@@ -136,7 +136,7 @@
         },
         {
           "package_id": 2,
-          "name": "Internet + Television + Decoder (free of charge)",
+          "name": "Internet + Television + Decoder (free)",
           "products": [1, 2, 4],
           "price": 79
         },
@@ -149,8 +149,8 @@
         {
           "package_id": 4,
           "name": "Telephone subscription + Smartphone",
-          "products": [2, 5],
-          "price": 89
+          "products": [3, 5],
+          "price": 74
         }
       ]
     }

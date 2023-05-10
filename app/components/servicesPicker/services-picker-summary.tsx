@@ -98,17 +98,17 @@ const ServicesPickerSummary = ({
             <>
               {packages.map((bundlePackage) => (
                 <div
-                  className="flex justify-between items-center text-black/80 text-xs"
+                  className="flex justify-between items-center text-black/80 text-xs gap-x-1"
                   key={bundlePackage.package_id}
                 >
                   <p>{bundlePackage.name}</p>
-                  <p className="font-semibold">{`${bundlePackage.price} ${DEFAULT_CURRENCY}`}</p>
+                  <p className="font-semibold min-w-[50px] text-end">{`${bundlePackage.price} ${DEFAULT_CURRENCY}`}</p>
                 </div>
               ))}
               {remainingPrice > 0 && (
-                <div className="flex justify-between items-center text-black/80 text-xs">
+                <div className="flex justify-between items-center text-black/80 text-xs gap-x-1">
                   <p>{"Rest"}</p>
-                  <p className="font-semibold">{`${remainingPrice} ${DEFAULT_CURRENCY}`}</p>
+                  <p className="font-semibold min-w-[50px] text-end">{`${remainingPrice} ${DEFAULT_CURRENCY}`}</p>
                 </div>
               )}
             </>

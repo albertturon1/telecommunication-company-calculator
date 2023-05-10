@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 
+import { YearProducts } from "@app/page-client";
 import { PricingYear, Product } from "@interfaces/IPricing";
 
 import ServicesPickerProduct from "./services-picker-product";
@@ -8,33 +9,55 @@ const ServicesPickerProducts = ({
   yearPrices,
   products,
   selectedProductIDs,
-  selectedProducts,
   setSelectedProducts,
+  selectedYear,
 }: {
   products: Product[];
   yearPrices: PricingYear;
   selectedProductIDs: number[];
-  selectedProducts: Product[];
-  setSelectedProducts: Dispatch<SetStateAction<Product[]>>;
+  setSelectedProducts: Dispatch<SetStateAction<YearProducts[]>>;
+  selectedYear: number;
 }) => {
   const onProductClick = useCallback(
     (product: Product) => {
       setSelectedProducts((prev) => {
-        const currentProductIndex = selectedProducts.findIndex(
+        const selectedYearProductsIndex = prev.findIndex(
+          (p) => p.year === selectedYear
+        );
+        const selectedYearProducts = prev[selectedYearProductsIndex];
+
+        //selected year hasnt been initialized
+        if (selectedYearProductsIndex === -1)
+          return [
+            ...prev,
+            {
+              year: selectedYear,
+              products: [product],
+            },
+          ];
+
+        const currentProductIndex = selectedYearProducts.products.findIndex(
           (selectedProduct) => selectedProduct.product_id === product.product_id
         );
 
-        if (currentProductIndex === -1) {
-          //product hasn't been already selected
-          return [...prev, product];
-        } else
-          return selectedProducts.filter(
-            (selectedProduct) =>
-              selectedProduct.product_id !== product.product_id
-          );
+        //product hasn't been already selected
+        return prev.map((yearProduct) => {
+          if (yearProduct.year !== selectedYear) return yearProduct;
+          if (currentProductIndex === -1)
+            return {
+              ...yearProduct,
+              products: [...yearProduct.products, product],
+            };
+          return {
+            ...yearProduct,
+            products: yearProduct.products.filter(
+              (p) => p.product_id !== product.product_id
+            ),
+          };
+        });
       });
     },
-    [selectedProducts, setSelectedProducts]
+    [selectedYear, setSelectedProducts]
   );
 
   return (
