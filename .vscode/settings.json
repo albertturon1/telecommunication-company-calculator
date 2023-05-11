@@ -1,18 +1,24 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
-    "scss.lint.unknownAtRules": "ignore",
-    "editor.codeActionsOnSave": {
-      // For ESLint
-      "source.fixAll.eslint": true,
-      // For TSLint
-      "source.fixAll.tslint": true,
-      // For Stylelint
-      "source.fixAll.stylelint": true
-    },
-    "editor.quickSuggestions": {
-      "strings": true
-   },
-   "css.validate": false,
-   "editor.inlineSuggest.enabled": true
-  }
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "scss.lint.unknownAtRules": "ignore",
+  "editor.codeActionsOnSave": {
+    // For ESLint
+    "source.fixAll.eslint": true,
+    // For TSLint
+    "source.fixAll.tslint": true,
+    // For Stylelint
+    "source.fixAll.stylelint": true
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "css.validate": false,
+  "editor.inlineSuggest.enabled": true,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "html",
+    "typescriptreact"
+  ]
+}
