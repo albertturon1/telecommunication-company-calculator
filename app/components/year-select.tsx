@@ -23,7 +23,7 @@ const YearSelect = ({
     }}
     defaultValue={defaultValue.toString()}
   >
-    <SelectTrigger className="max-w-[200px] w-full">
+    <SelectTrigger className="max-w-[150px] w-full">
       <SelectValue placeholder="Select year" />
     </SelectTrigger>
     <SelectContent>

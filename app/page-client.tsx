@@ -1,8 +1,7 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { useState } from "react";
 
-import { Separator } from "@components/separator";
 import { Button } from "@components/ui/button";
 import { Product, ShopResponse } from "@interfaces/IPricing";
 
@@ -24,35 +23,22 @@ const PageClient = ({ pricelist }: { pricelist: ShopResponse }) => {
   const availableYears = pricingYears.filter((p) => !years.includes(p));
 
   return (
-    <main className="flex flex-col gap-y-8 py-4 sm:py-8 lg:py-16">
+    <main className="flex flex-col py-4 sm:py-8 lg:py-16 w-full flex-col items-center gap-y-8 ">
       {years.map((year, index) => (
-        <Fragment key={year}>
+        <div key={year} className="self-center max-w-md w-full">
           <ServicesPicker
             availableYears={availableYears}
             selectedYear={year}
             pricelist={pricelist}
             setYearProducts={setYearProducts}
             yearProducts={yearProducts}
+            showSeparator={index !== pricingYears.length - 1}
           />
-          {yearProducts.length > 1 && (
-            <Button
-              variant="destructive"
-              onClick={() => {
-                setYearProducts((prev) => prev.filter((p) => p.year !== year));
-              }}
-            >
-              <p>{"Remove"}</p>
-            </Button>
-          )}
-          {index !== pricingYears.length - 1 && (
-            <div className="w-full self-center">
-              <Separator />
-            </div>
-          )}
-        </Fragment>
+        </div>
       ))}
       {availableYears.length > 0 && (
         <Button
+          className="self-center"
           onClick={() => {
             setYearProducts((prev) => [
               ...prev,
