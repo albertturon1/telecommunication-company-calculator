@@ -24,7 +24,7 @@ const ServicesPickerProducts = ({
         const selectedYearProductsIndex = prev.findIndex(
           (p) => p.year === selectedYear
         );
-        const selectedYearProducts = prev[selectedYearProductsIndex];
+        const selectedYearlyProducts = prev[selectedYearProductsIndex];
 
         //selected year hasnt been initialized
         if (selectedYearProductsIndex === -1)
@@ -36,7 +36,7 @@ const ServicesPickerProducts = ({
             },
           ];
 
-        const currentProductIndex = selectedYearProducts.products.findIndex(
+        const currentProductIndex = selectedYearlyProducts.products.findIndex(
           (selectedProduct) => selectedProduct.product_id === product.product_id
         );
 

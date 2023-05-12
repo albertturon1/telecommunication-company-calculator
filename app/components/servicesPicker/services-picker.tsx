@@ -7,9 +7,17 @@ import SectionLabel from "@components/misc/section-label";
 import { Separator } from "@components/separator";
 import { Button } from "@components/ui/button";
 import { ShopResponse } from "@interfaces/IPricing";
+import { cn } from "@src/lib/utils";
+import {
+  findYearlyPackages,
+  selectedYearProductIDs,
+  selectedYearlyProducts,
+  yearPrices,
+  yearlyPackagesSummary,
+} from "@src/lib/yearlyPackagesSummary";
 
 import ServicesPickerProducts from "./services-picker-products";
-import ServicesPickerSummary from "./services-picker-summary";
+import ServicesSummaryWithPackages from "./services-summary-packages";
 import YearSelect from "../year-select";
 
 export const ServicesPicker = ({
@@ -27,16 +35,24 @@ export const ServicesPicker = ({
   setYearProducts: Dispatch<SetStateAction<YearProducts[]>>;
   showSeparator: boolean;
 }) => {
-  const selectedProducts =
-    yearProducts.find((yearProduct) => yearProduct.year === selectedYear)
-      ?.products ?? [];
+  const selectedProducts = selectedYearlyProducts(yearProducts, selectedYear);
+  const selectedProductIDs = selectedYearProductIDs(selectedProducts);
+  const selectedYearPrices = yearPrices(pricelist.pricing, selectedYear);
 
-  const selectedProductIDs =
-    selectedProducts.map((selectedProduct) => selectedProduct.product_id) ?? [];
+  const yearBundles = pricelist.bundles.find((y) => y.year === selectedYear);
+  const packages = findYearlyPackages({
+    selectedYear,
+    yearProducts,
+    yearBundles,
+  });
+  const summary = yearlyPackagesSummary({
+    bundles: pricelist.bundles,
+    prices: selectedYearPrices?.prices,
+    selectedYear,
+    yearProducts,
+  });
 
-  const yearPrices = pricelist.pricing.find((y) => y.year === selectedYear);
-
-  if (!yearPrices) return null;
+  if (!selectedYearPrices || !selectedProductIDs || !summary) return null;
   return (
     <div className="flex flex-1 flex-col gap-y-4 w-full">
       <div className="flex gap-y-2 w-full items-center justify-between">
@@ -59,18 +75,13 @@ export const ServicesPicker = ({
         />
       </div>
       <ServicesPickerProducts
-        yearPrices={yearPrices}
+        yearPrices={selectedYearPrices}
         products={pricelist.products}
         selectedProductIDs={selectedProductIDs}
         setSelectedProducts={setYearProducts}
         selectedYear={selectedYear}
       />
-      <ServicesPickerSummary
-        bundles={pricelist.bundles}
-        yearPrices={yearPrices}
-        selectedProductIDs={selectedProductIDs}
-        selectedYear={selectedYear}
-      />
+      <ServicesSummaryWithPackages {...summary} packages={packages} />
       {yearProducts.length > 1 && (
         <Button
           variant="destructive"
@@ -84,10 +95,16 @@ export const ServicesPicker = ({
           <p>{"Remove"}</p>
         </Button>
       )}
-      {/* show separator when year is not last available and on selected year are any products OR more than 1 year is selected */}
+      {/* show separator when selected year is not last available and selected year has products OR more than 1 year is selected */}
       {showSeparator &&
-        (selectedProducts.length > 0 || yearProducts.length > 1) && (
-          <div className="w-full self-center pt-4">
+        ((selectedProducts && selectedProducts.length > 0) ||
+          yearProducts.length > 1) && (
+          <div
+            className={cn(
+              "w-full self-center",
+              yearProducts.length > 1 && "pt-2" //extra padding when more than 1 year is selected
+            )}
+          >
             <Separator />
           </div>
         )}
