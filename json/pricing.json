@@ -51,7 +51,7 @@
         { "product_id": 3, "price": 29 },
         { "product_id": 4, "price": 29 },
         { "product_id": 5, "price": 45 },
-        { "product_id": 6, "price": 405 }
+        { "product_id": 6, "price": 415 }
       ]
     },
     {
@@ -62,7 +62,7 @@
         { "product_id": 3, "price": 29 },
         { "product_id": 4, "price": 29 },
         { "product_id": 5, "price": 45 },
-        { "product_id": 6, "price": 405 }
+        { "product_id": 6, "price": 425 }
       ]
     }
   ],
