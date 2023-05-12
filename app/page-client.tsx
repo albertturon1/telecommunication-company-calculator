@@ -34,7 +34,15 @@ const PageClient = ({ pricelist }: { pricelist: ShopResponse }) => {
   return (
     // padding so that AllServicesSummary does not obscure the elements below itself
     <main className={cn(productsLength > 0 ? "pb-36" : "pb-10")}>
-      <div className="flex flex-col py-4 sm:py-8 lg:py-16 w-full items-center gap-y-8">
+      <div className="flex flex-col py-4 sm:pb-8 lg:pb-16 w-full items-center gap-y-6 xl:gap-y-8 container mx-auto">
+        <div className="flex flex-col gap-y-3 flex-wrap max-w-2xl mb-5">
+          <h1 className="text-2xl font-semibold">{"Services"}</h1>
+          <p className="text-lg">
+            {
+              "Our customizable telecommunication packages allow you to choose the services you want, at a price that fits your budget"
+            }
+          </p>
+        </div>
         {selectedYears.map((year, index) => (
           <div key={year} className="self-center max-w-md w-full">
             <ServicesPicker

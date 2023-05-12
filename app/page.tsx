@@ -1,5 +1,6 @@
 import { ShopResponse } from "@interfaces/IPricing";
 
+import Landing from "./components/landing";
 import Error from "./error";
 import PageClient from "./page-client";
 
@@ -15,5 +16,10 @@ export default async function Home() {
   const pricelist = await getPricelist();
 
   if (!pricelist) return Error;
-  return <PageClient pricelist={pricelist} />;
+  return (
+    <div>
+      <Landing />
+      <PageClient pricelist={pricelist} />
+    </div>
+  );
 }
