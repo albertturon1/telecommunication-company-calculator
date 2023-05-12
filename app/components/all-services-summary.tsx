@@ -1,8 +1,8 @@
 import { YearProducts } from "@app/page-client";
-import { DEFAULT_CURRENCY } from "@components/constants/globals";
 import ServicesSummary, {
   ServicesSummaryRow,
 } from "@components/misc/services-summary";
+import { DEFAULT_CURRENCY } from "@constants/globals";
 import { BundleYear, PricingYear } from "@interfaces/IPricing";
 import { cn } from "@src/lib/utils";
 import {

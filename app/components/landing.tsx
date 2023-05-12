@@ -6,10 +6,10 @@ import LandingImage from "public/landing.webp";
 const Landing = () => (
   <div className="flex relative items-center mb-2 sm:mt-4 lg:mt-8 sm:px-5 lg:container mx-auto 2xl:px-0">
     <div className="flex flex-1 sm:border border-border sm:rounded-xl sm:p-5 items-center lg:p-10 gap-x-5 lg:gap-x-16">
-      <div className="absolute sm:static w-full h-full bg-black/50 sm:bg-transparent z-10 flex items-center justify-center">
+      <div className="absolute sm:static w-full h-full bg-black/50 sm:bg-transparent z-10 flex items-center justify-center pt-10">
         <TitleSubtitle />
       </div>
-      <div className="w-full sm:min-w-1/2 max-w-[640px] relative min-h-[350px] sm:min-h-[450px] sm:rounded-lg overflow-hidden">
+      <div className="w-full sm:min-w-1/2 max-w-[640px] relative min-h-max h-[400px] sm:min-h-[450px] sm:rounded-lg overflow-hidden">
         <Image
           priority
           src={LandingImage}

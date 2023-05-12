@@ -1,6 +1,7 @@
 import { MinusCircle, PlusCircle } from "lucide-react";
 
 import { Button } from "@components/ui/button";
+import { DEFAULT_CURRENCY } from "@constants/globals";
 import Theme from "@src/Theme";
 
 const ServicesPickerProduct = ({
@@ -28,7 +29,7 @@ const ServicesPickerProduct = ({
         <PlusCircle color={Theme.colors.deep_blue} />
       )}
       <p>{name}</p>
-      <p>{`${price} zł`}</p>
+      <p>{`${price} ${DEFAULT_CURRENCY}`}</p>
     </div>
   </Button>
 );

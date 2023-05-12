@@ -5,7 +5,6 @@ import { Dispatch, SetStateAction } from "react";
 import { YearProducts } from "@app/page-client";
 import SectionLabel from "@components/misc/section-label";
 import { Separator } from "@components/separator";
-import { Button } from "@components/ui/button";
 import { ShopResponse } from "@interfaces/IPricing";
 import { cn } from "@src/lib/utils";
 import {
@@ -18,6 +17,7 @@ import {
 
 import ServicesPickerProducts from "./services-picker-products";
 import ServicesSummaryWithPackages from "./services-summary-packages";
+import RemoveYearAlertDialog from "../remove-year-alert-dialog";
 import YearSelect from "../year-select";
 
 export const ServicesPicker = ({
@@ -82,20 +82,16 @@ export const ServicesPicker = ({
         selectedYear={selectedYear}
       />
       <ServicesSummaryWithPackages {...summary} packages={packages} />
-      {yearProducts.length > 1 && (
-        <Button
-          variant="destructive"
-          className="w-full"
-          onClick={() => {
-            setYearProducts((prev) =>
-              prev.filter((p) => p.year !== selectedYear)
-            );
-          }}
-        >
-          <p>{"Remove"}</p>
-        </Button>
-      )}
-      {/* show separator when selected year is not last available and selected year has products OR more than 1 year is selected */}
+      <RemoveYearAlertDialog
+        selectedProductsLength={selectedProducts?.length ?? 0}
+        visible={yearProducts.length > 1}
+        onClick={() => {
+          setYearProducts((prev) =>
+            prev.filter((p) => p.year !== selectedYear)
+          );
+        }}
+      />
+      {/* show separator when selected year is not last available AND selected year has products OR more than 1 year is selected */}
       {showSeparator &&
         ((selectedProducts && selectedProducts.length > 0) ||
           yearProducts.length > 1) && (

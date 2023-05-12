@@ -30,6 +30,7 @@ const PageClient = ({ pricelist }: { pricelist: ShopResponse }) => {
       { year: availableYears[0], products: [] },
     ]);
   };
+
   const productsLength = yearProducts.flatMap((y) => y.products).length;
   return (
     // padding so that AllServicesSummary does not obscure the elements below itself
@@ -55,7 +56,7 @@ const PageClient = ({ pricelist }: { pricelist: ShopResponse }) => {
             />
           </div>
         ))}
-        {availableYears.length > 0 && (
+        {availableYears.length > 0 && productsLength > 0 && (
           <Button className="self-center" onClick={addNextYear}>
             <p>{"Add next year"}</p>
           </Button>

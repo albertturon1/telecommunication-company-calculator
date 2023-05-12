@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { DEFAULT_CURRENCY } from "@components/constants/globals";
+import { DEFAULT_CURRENCY } from "@constants/globals";
 import { cn } from "@src/lib/utils";
 
 const ServicesSummary = ({
@@ -18,7 +18,7 @@ const ServicesSummary = ({
   return (
     <div
       className={cn(
-        "flex flex-col text-sm gap-y-1 px-1 w-full",
+        "flex flex-col text-sm gap-y-1 w-full",
         containerClassName
       )}
     >
