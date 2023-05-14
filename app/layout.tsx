@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Telecommunication Company calculator",
+  title: "Telecommunication Company Calculator",
   description: "Made by Albert Turoń",
 };
 

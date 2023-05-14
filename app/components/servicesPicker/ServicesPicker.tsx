@@ -55,13 +55,12 @@ export const ServicesPicker = ({
   });
 
   const onValueChange = (newYear: number) => {
-    setSelectedServices((prev) => {
-      const currentYearProduct = prev.find((p) => p.year === selectedYear);
-      return prev.map((p) => {
-        if (!currentYearProduct || p.year !== currentYearProduct.year) return p;
+    setSelectedServices((prev) =>
+      prev.map((p) => {
+        if (p.year !== selectedYear) return p;
         return { ...p, year: newYear };
-      });
-    });
+      })
+    );
   };
 
   if (!selectedYearPrices || !selectedProductIDs || !summary) return null;
@@ -71,7 +70,7 @@ export const ServicesPicker = ({
         <SectionLabel>{"Year of services"}</SectionLabel>
         <YearSelect
           onValueChange={onValueChange}
-          defaultValue={selectedYear}
+          value={selectedYear}
           availableYears={[selectedYear, ...availableYears].sort()}
         />
       </div>
