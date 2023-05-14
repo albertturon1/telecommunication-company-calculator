@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 
-import { YearProducts } from "@app/components/services";
+import { YearProducts } from "@app/components/Services";
 import { Product, ProductPrice } from "@interfaces/IPricing";
 
-import ServicesPickerProduct from "./services-picker-product";
+import ServicesPickerProduct from "./ServicesPickerProductsItem";
 
 const ServicesPickerProducts = ({
   productsPrices,

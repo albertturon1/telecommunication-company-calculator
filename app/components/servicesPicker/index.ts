@@ -1,2 +1,2 @@
-import { ServicesPicker } from "./services-picker";
+import { ServicesPicker } from "./ServicesPicker";
 export default ServicesPicker;

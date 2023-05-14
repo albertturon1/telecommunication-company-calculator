@@ -1,7 +1,7 @@
-import { YearProducts } from "@app/components/services";
+import { YearProducts } from "@app/components/Services";
 import ServicesSummary, {
   ServicesSummaryRow,
-} from "@components/misc/services-summary";
+} from "@components/misc/ServicesSummary";
 import { DEFAULT_CURRENCY } from "@constants/globals";
 import { BundleYear, PricingYear } from "@interfaces/IPricing";
 import { summarizePackagesForYear } from "@src/lib/servicesHelpers";

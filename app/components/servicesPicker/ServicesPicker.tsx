@@ -1,8 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
-import { YearProducts } from "@app/components/services";
-import SectionLabel from "@components/misc/section-label";
-import { Separator } from "@components/separator";
+import SectionLabel from "@components/misc/SectionLabel";
+import { Separator } from "@components/Separator";
 import { ShopResponse } from "@interfaces/IPricing";
 import {
   findPackagesForYear,
@@ -12,10 +11,11 @@ import {
 } from "@src/lib/servicesHelpers";
 import { cn } from "@src/lib/utils";
 
-import ServicesPickerProducts from "./services-picker-products";
-import ServicesSummaryWithPackages from "./services-summary-with-packages";
-import RemoveYearAlertDialog from "../remove-year-alert-dialog";
-import YearSelect from "../year-select";
+import ServicesPickerProducts from "./ServicesPickerProducts";
+import ServicesSummaryWithPackages from "./ServicesSummaryWithPackages";
+import RemoveYearAlertDialog from "../RemoveYearAlertDialog";
+import { YearProducts } from "../Services";
+import YearSelect from "../YearSelect";
 
 export const ServicesPicker = ({
   pricelist,

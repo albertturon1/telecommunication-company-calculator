@@ -1,6 +1,6 @@
 import ServicesSummary, {
   ServicesSummaryRow,
-} from "@components/misc/services-summary";
+} from "@components/misc/ServicesSummary";
 import { DEFAULT_CURRENCY } from "@constants/globals";
 import { Package } from "@interfaces/IPricing";
 import { cn } from "@src/lib/utils";
