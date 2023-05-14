@@ -1,30 +1,27 @@
-import { YearProducts } from "@app/page-client";
+import { YearProducts } from "@app/components/services";
 import ServicesSummary, {
   ServicesSummaryRow,
 } from "@components/misc/services-summary";
 import { DEFAULT_CURRENCY } from "@constants/globals";
 import { BundleYear, PricingYear } from "@interfaces/IPricing";
+import { summarizePackagesForYear } from "@src/lib/servicesHelpers";
 import { cn } from "@src/lib/utils";
-import {
-  yearPrices,
-  yearlyPackagesSummary,
-} from "@src/lib/yearlyPackagesSummary";
 
 const AllServicesSummary = ({
-  pricing,
-  bundles,
-  yearProducts,
+  pricingYears,
+  bundleYears,
+  selectedServices,
 }: {
-  yearProducts: YearProducts[];
-  pricing: PricingYear[];
-  bundles: BundleYear[];
+  selectedServices: YearProducts[];
+  pricingYears: PricingYear[];
+  bundleYears: BundleYear[];
 }) => {
-  const allYearsSummary = yearProducts.map((y) =>
-    yearlyPackagesSummary({
+  const allYearsSummary = selectedServices.map((y) =>
+    summarizePackagesForYear({
       selectedYear: y.year,
-      prices: yearPrices(pricing, y.year)?.prices,
-      yearProducts,
-      bundles,
+      pricingYears,
+      selectedServices,
+      bundleYears,
     })
   );
 

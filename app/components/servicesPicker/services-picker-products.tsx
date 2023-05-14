@@ -1,19 +1,19 @@
 import { Dispatch, SetStateAction, useCallback } from "react";
 
-import { YearProducts } from "@app/page-client";
-import { PricingYear, Product } from "@interfaces/IPricing";
+import { YearProducts } from "@app/components/services";
+import { Product, ProductPrice } from "@interfaces/IPricing";
 
 import ServicesPickerProduct from "./services-picker-product";
 
 const ServicesPickerProducts = ({
-  yearPrices,
+  productsPrices,
   products,
   selectedProductIDs,
   setSelectedProducts,
   selectedYear,
 }: {
+  productsPrices: ProductPrice[];
   products: Product[];
-  yearPrices: PricingYear;
   selectedProductIDs: number[];
   setSelectedProducts: Dispatch<SetStateAction<YearProducts[]>>;
   selectedYear: number;
@@ -24,9 +24,9 @@ const ServicesPickerProducts = ({
         const selectedYearProductsIndex = prev.findIndex(
           (p) => p.year === selectedYear
         );
-        const selectedYearlyProducts = prev[selectedYearProductsIndex];
+        const selectedYearProducts = prev[selectedYearProductsIndex];
 
-        //selected year hasnt been initialized
+        //initialized new object for selected year
         if (selectedYearProductsIndex === -1)
           return [
             ...prev,
@@ -36,18 +36,20 @@ const ServicesPickerProducts = ({
             },
           ];
 
-        const currentProductIndex = selectedYearlyProducts.products.findIndex(
+        const currentProductIndex = selectedYearProducts.products.findIndex(
           (selectedProduct) => selectedProduct.product_id === product.product_id
         );
 
-        //product hasn't been already selected
         return prev.map((yearProduct) => {
-          if (yearProduct.year !== selectedYear) return yearProduct;
+          if (yearProduct.year !== selectedYear) return yearProduct; //skipping data from other years
           if (currentProductIndex === -1)
+            //adding product
             return {
               ...yearProduct,
               products: [...yearProduct.products, product],
             };
+
+          //removing product
           return {
             ...yearProduct,
             products: yearProduct.products.filter(
@@ -63,11 +65,11 @@ const ServicesPickerProducts = ({
   return (
     <div className="flex flex-col gap-3 w-full">
       {products.map((product) => {
-        const productPricing = yearPrices.prices.find(
+        const productPricing = productsPrices.find(
           (productData) => productData.product_id === product.product_id
         );
 
-        //if product doesnt have list of required other products or alread ever required product have been selected
+        //if product doesn't have a list of required products or already every required product have been selected
         const showProduct =
           !product.required ||
           product.required.every((product_id) =>

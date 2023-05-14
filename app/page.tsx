@@ -1,17 +1,19 @@
 import { promises as fs } from "fs";
 import path from "path";
 
+import PagePadding from "@components/misc/page-padding";
 import { ShopResponse } from "@interfaces/IPricing";
 
 import Landing from "./components/landing";
+import Services from "./components/services";
+import ServicesHeader from "./components/services-header";
 import Error from "./error";
-import PageClient from "./page-client";
 
 export const revalidate = 0;
 
 async function getPricelist() {
   const jsonDirectory = path.join(process.cwd(), "json");
-  //Read the json data file data.json
+
   const fileContents = await fs.readFile(
     `${jsonDirectory}/pricing.json`,
     "utf8"
@@ -27,7 +29,10 @@ export default async function Home() {
   return (
     <div>
       <Landing />
-      <PageClient pricelist={pricelist} />
+      <PagePadding>
+        <ServicesHeader />
+        <Services pricelist={pricelist} />
+      </PagePadding>
     </div>
   );
 }
