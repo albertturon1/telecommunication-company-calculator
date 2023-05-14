@@ -11,7 +11,7 @@ export function yearPrices(pricing: PricingYear[], selectedYear: number) {
   return pricing.find((y) => y.year === selectedYear);
 }
 
-export function selectedYearlyProducts(
+export function selectedYearProducts(
   yearProducts: YearProducts[],
   selectedYear: number
 ) {
@@ -30,7 +30,7 @@ export function selectedYearProductIDs(
 }
 
 //dodaj zliczenia ile kosztują rzeczy z pakietu osobno, potem porównaj do tego ile kosztują w pakiecie i posortujtak, żeby była jak najwieksza zniżka albo koszt całkowity był najnizszy
-export function findYearlyPackages({
+export function findYearPackages({
   selectedYear,
   yearProducts,
   yearBundles,
@@ -39,7 +39,7 @@ export function findYearlyPackages({
   selectedYear: number;
   yearBundles: BundleYear | undefined;
 }) {
-  const selectedProducts = selectedYearlyProducts(yearProducts, selectedYear);
+  const selectedProducts = selectedYearProducts(yearProducts, selectedYear);
   const selectedProductIDs = selectedYearProductIDs(selectedProducts);
   let temporarySelectedProductIDs = [...(selectedProductIDs ?? [])].sort(
     (a, b) => (a > b ? 1 : -1)
@@ -71,7 +71,7 @@ export function findYearlyPackages({
   return selectedPackages;
 }
 
-export function yearlyPackagesSummary({
+export function summarizeYearPackages({
   prices,
   bundles,
   selectedYear,
@@ -82,7 +82,7 @@ export function yearlyPackagesSummary({
   selectedYear: number;
   yearProducts: YearProducts[];
 }) {
-  const selectedProducts = selectedYearlyProducts(yearProducts, selectedYear);
+  const selectedProducts = selectedYearProducts(yearProducts, selectedYear);
   const selectedProductIDs = selectedYearProductIDs(selectedProducts);
 
   if (!selectedProductIDs || !prices) return;
@@ -95,7 +95,7 @@ export function yearlyPackagesSummary({
 
   const yearBundles = bundles.find((y) => y.year === selectedYear);
 
-  const packages = findYearlyPackages({
+  const packages = findYearPackages({
     selectedYear,
     yearProducts,
     yearBundles,

@@ -2,18 +2,19 @@
 
 import { Dispatch, SetStateAction } from "react";
 
+
 import { YearProducts } from "@app/page-client";
 import SectionLabel from "@components/misc/section-label";
 import { Separator } from "@components/separator";
 import { ShopResponse } from "@interfaces/IPricing";
-import { cn } from "@src/lib/utils";
 import {
-  findYearlyPackages,
+  findYearPackages,
   selectedYearProductIDs,
-  selectedYearlyProducts,
+  selectedYearProducts,
   yearPrices,
-  yearlyPackagesSummary,
-} from "@src/lib/yearlyPackagesSummary";
+  summarizeYearPackages,
+} from "@src/lib/servicesHelpers";
+import { cn } from "@src/lib/utils";
 
 import ServicesPickerProducts from "./services-picker-products";
 import ServicesSummaryWithPackages from "./services-summary-packages";
@@ -35,17 +36,17 @@ export const ServicesPicker = ({
   setYearProducts: Dispatch<SetStateAction<YearProducts[]>>;
   showSeparator: boolean;
 }) => {
-  const selectedProducts = selectedYearlyProducts(yearProducts, selectedYear);
+  const selectedProducts = selectedYearProducts(yearProducts, selectedYear);
   const selectedProductIDs = selectedYearProductIDs(selectedProducts);
   const selectedYearPrices = yearPrices(pricelist.pricing, selectedYear);
 
   const yearBundles = pricelist.bundles.find((y) => y.year === selectedYear);
-  const packages = findYearlyPackages({
+  const packages = findYearPackages({
     selectedYear,
     yearProducts,
     yearBundles,
   });
-  const summary = yearlyPackagesSummary({
+  const summary = summarizeYearPackages({
     bundles: pricelist.bundles,
     prices: selectedYearPrices?.prices,
     selectedYear,
