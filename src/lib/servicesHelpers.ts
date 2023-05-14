@@ -1,55 +1,78 @@
-import { YearProducts } from "@app/page-client";
+import { YearProducts } from "@app/components/services";
 import {
   BundleYear,
   Package,
   PricingYear,
   Product,
-  ProductPrice,
 } from "@interfaces/IPricing";
 
-export function yearPrices(pricing: PricingYear[], selectedYear: number) {
-  return pricing.find((y) => y.year === selectedYear);
-}
-
-export function selectedYearProducts(
-  yearProducts: YearProducts[],
+export function getSelectedYearProducts(
+  selectedServices: YearProducts[],
   selectedYear: number
 ) {
-  const yearlyProducts = yearProducts.find(
+  const yearlyProducts = selectedServices.find(
     (yearProduct) => yearProduct.year === selectedYear
   );
   if (!yearlyProducts) return;
   return yearlyProducts.products;
 }
 
-export function selectedYearProductIDs(
+export function getSelectedYearProductIDs(
   selectedProducts: Product[] | undefined
 ): number[] | undefined {
   if (!selectedProducts) return;
   return selectedProducts.map((selectedProduct) => selectedProduct.product_id);
 }
 
-//dodaj zliczenia ile kosztują rzeczy z pakietu osobno, potem porównaj do tego ile kosztują w pakiecie i posortujtak, żeby była jak najwieksza zniżka albo koszt całkowity był najnizszy
-export function findYearPackages({
+export function findPackagesForYear({
   selectedYear,
-  yearProducts,
-  yearBundles,
+  selectedServices,
+  bundleYears,
+  pricingYears,
 }: {
-  yearProducts: YearProducts[];
+  selectedServices: YearProducts[];
   selectedYear: number;
-  yearBundles: BundleYear | undefined;
+  bundleYears: BundleYear[];
+  pricingYears: PricingYear[];
 }) {
-  const selectedProducts = selectedYearProducts(yearProducts, selectedYear);
-  const selectedProductIDs = selectedYearProductIDs(selectedProducts);
-  let temporarySelectedProductIDs = [...(selectedProductIDs ?? [])].sort(
-    (a, b) => (a > b ? 1 : -1)
+  const selectedPackages: Package[] = [] satisfies Package[];
+  const selectedProducts = getSelectedYearProducts(
+    selectedServices,
+    selectedYear
   );
-  const selectedPackages: Package[] = [];
-  if (!yearBundles || temporarySelectedProductIDs.length === 0)
+  const selectedProductIDs = getSelectedYearProductIDs(selectedProducts);
+  const prices = pricingYears.find((y) => y.year === selectedYear)?.prices;
+  const packages = bundleYears.find((y) => y.year === selectedYear)?.packages;
+
+  if (
+    !packages ||
+    !prices ||
+    !selectedProductIDs ||
+    selectedProductIDs.length === 0
+  )
     return selectedPackages;
-  const bundlePackagesSorted = yearBundles.packages.sort(
-    (a, b) => (a.products.length < b.products.length ? 1 : -1) //descending
-  ); //git
+
+  //calculating values of without discounts from multipack
+  const packagesPricesWithoutDiscount = packages.flatMap((p) => {
+    const priceWithoutDiscount = p.products.reduce((acc, product_id) => {
+      const productPricing = prices.find((p) => p.product_id === product_id);
+      if (!productPricing) return acc;
+      // eslint-disable-next-line no-param-reassign
+      acc += productPricing?.price;
+      return acc;
+    }, 0);
+
+    return {
+      ...p,
+      priceWithoutDiscount,
+      diffrence: priceWithoutDiscount - p.price,
+    };
+  });
+
+  let temporarySelectedProductIDs = [...selectedProductIDs];
+  const bundlePackagesSorted = packagesPricesWithoutDiscount.sort(
+    (a, b) => (a.diffrence < b.diffrence ? 1 : -1) //descending
+  );
 
   for (const bundlePackage of bundlePackagesSorted) {
     const sortedBundleProducts = bundlePackage.products.sort(
@@ -61,7 +84,14 @@ export function findYearPackages({
         temporarySelectedProductIDs.includes(productID)
       )
     ) {
-      selectedPackages.push(bundlePackage);
+      //removal of unused variables
+      const {
+        diffrence: _diffrence,
+        priceWithoutDiscount: _priceWithoutDiscount,
+        ...rest
+      } = bundlePackage;
+
+      selectedPackages.push(rest);
       temporarySelectedProductIDs = temporarySelectedProductIDs.filter(
         (productID) => !sortedBundleProducts.includes(productID)
       );
@@ -71,19 +101,26 @@ export function findYearPackages({
   return selectedPackages;
 }
 
-export function summarizeYearPackages({
-  prices,
-  bundles,
+// 2  //88-79
+// 3  //129-100
+
+export function summarizePackagesForYear({
+  pricingYears,
+  bundleYears,
   selectedYear,
-  yearProducts,
+  selectedServices,
 }: {
-  prices: ProductPrice[] | undefined;
-  bundles: BundleYear[];
+  pricingYears: PricingYear[];
+  bundleYears: BundleYear[];
   selectedYear: number;
-  yearProducts: YearProducts[];
+  selectedServices: YearProducts[];
 }) {
-  const selectedProducts = selectedYearProducts(yearProducts, selectedYear);
-  const selectedProductIDs = selectedYearProductIDs(selectedProducts);
+  const selectedProducts = getSelectedYearProducts(
+    selectedServices,
+    selectedYear
+  );
+  const selectedProductIDs = getSelectedYearProductIDs(selectedProducts);
+  const prices = pricingYears.find((y) => y.year === selectedYear)?.prices;
 
   if (!selectedProductIDs || !prices) return;
   const regularPrice = prices.reduce((acc, item) => {
@@ -93,12 +130,11 @@ export function summarizeYearPackages({
     return acc;
   }, 0);
 
-  const yearBundles = bundles.find((y) => y.year === selectedYear);
-
-  const packages = findYearPackages({
+  const packages = findPackagesForYear({
     selectedYear,
-    yearProducts,
-    yearBundles,
+    selectedServices,
+    bundleYears,
+    pricingYears,
   });
   const packagesProductIDs = packages?.flatMap(
     (bundlePackage) => bundlePackage.products

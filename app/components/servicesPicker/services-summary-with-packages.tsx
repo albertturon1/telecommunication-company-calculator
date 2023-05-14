@@ -32,20 +32,20 @@ const ServicesSummaryWithPackages = ({
             rightText={`${discountedPrice} ${DEFAULT_CURRENCY}`}
           />
         )}
-        {packages.length > 1 &&
-          packages.map((bundlePackage) => (
+        {(packages.length > 1 || remainingPrice > 0) &&
+            packages.map((bundlePackage) => (
+              <DiscountRow
+                key={bundlePackage.package_id}
+                leftText={bundlePackage.name}
+                rightText={`${bundlePackage.price} ${DEFAULT_CURRENCY}`}
+              />
+            ))}
+          {remainingPrice > 0 && (
             <DiscountRow
-              key={bundlePackage.package_id}
-              leftText={bundlePackage.name}
-              rightText={`${bundlePackage.price} ${DEFAULT_CURRENCY}`}
+              leftText={"Rest"}
+              rightText={`${remainingPrice} ${DEFAULT_CURRENCY}`}
             />
-          ))}
-        {remainingPrice > 0 && (
-          <DiscountRow
-            leftText={"Rest"}
-            rightText={`${remainingPrice} ${DEFAULT_CURRENCY}`}
-          />
-        )}
+          )}
       </div>
     )}
   </ServicesSummary>
