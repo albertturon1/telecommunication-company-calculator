@@ -1,10 +1,10 @@
 import { MinusCircle, PlusCircle } from "lucide-react";
 
-import { Button } from "@components/ui/button";
+import { Button } from "@components/ui/Button";
 import { DEFAULT_CURRENCY } from "@constants/globals";
 import Theme from "@src/Theme";
 
-const ServicesPickerProduct = ({
+const ServicesPickerProductsItem = ({
   name,
   onButtonClick,
   price,
@@ -34,4 +34,4 @@ const ServicesPickerProduct = ({
   </Button>
 );
 
-export default ServicesPickerProduct;
+export default ServicesPickerProductsItem;

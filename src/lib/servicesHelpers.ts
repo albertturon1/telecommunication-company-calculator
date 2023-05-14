@@ -1,4 +1,4 @@
-import { YearProducts } from "@app/components/services";
+import { YearProducts } from "@app/components/Services";
 import {
   BundleYear,
   Package,

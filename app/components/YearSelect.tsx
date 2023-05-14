@@ -6,7 +6,7 @@ import {
   SelectGroup,
   SelectItem,
   SelectTrigger,
-} from "@components/ui/select";
+} from "@components/ui/Select";
 
 const YearSelect = ({
   onValueChange,

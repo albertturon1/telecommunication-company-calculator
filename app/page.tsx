@@ -1,12 +1,12 @@
 import { promises as fs } from "fs";
 import path from "path";
 
-import PagePadding from "@components/misc/page-padding";
+import PagePadding from "@components/misc/PagePadding";
 import { ShopResponse } from "@interfaces/IPricing";
 
-import Landing from "./components/landing";
-import Services from "./components/services";
-import ServicesHeader from "./components/services-header";
+import Landing from "./components/Landing";
+import Services from "./components/Services";
+import ServicesHeader from "./components/ServicesHeader";
 import Error from "./error";
 
 export const revalidate = 0;

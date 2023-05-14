@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 
-import { Button } from "@components/ui/button";
+import { Button } from "@components/ui/Button";
 import { Product, ShopResponse } from "@interfaces/IPricing";
 import { cn } from "@src/lib/utils";
 
-import AllServicesSummary from "./all-services-summary";
+import AllServicesSummary from "./AllServicesSummary";
 import ServicesPicker from "./servicesPicker";
 
 export type YearProducts = {
