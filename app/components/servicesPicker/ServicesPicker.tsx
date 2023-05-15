@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction } from "react";
 import dynamic from "next/dynamic";
 
 import SectionLabel from "@components/misc/SectionLabel";
-import { Separator } from "@components/Separator";
-import { Skeleton } from "@components/ui/skeleton";
+import { Separator } from "@components/ui/Separator";
+import { Skeleton } from "@components/ui/Skeleton";
 import { ShopResponse } from "@interfaces/IPricing";
 import {
   findPackagesForYear,
