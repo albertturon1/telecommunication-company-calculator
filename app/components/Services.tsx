@@ -38,7 +38,7 @@ const Services = ({ pricelist }: { pricelist: ShopResponse }) => {
 
   return (
     // padding so that AllServicesSummary does not obscure the elements below itself
-    <main className={cn(allSelectedProductsLength > 0 ? "pb-36" : "pb-10")}>
+    <main className={cn(allSelectedProductsLength > 0 ? "pb-32" : "pb-10")}>
       <div className="flex flex-col py-4 sm:pb-8 lg:pb-16 w-full items-center gap-y-6 xl:gap-y-8">
         {selectedYears.map((year, index) => (
           <div key={year} className="self-center max-w-md w-full">
