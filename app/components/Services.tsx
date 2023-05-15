@@ -21,8 +21,10 @@ const Services = ({ pricelist }: { pricelist: ShopResponse }) => {
     { year: pricingYears[0], products: [] },
   ]);
 
-  const selectedYears = selectedServices.map((y) => y.year);
-  const availableYears = pricingYears.filter((p) => !selectedYears.includes(p));
+  const selectedYears = selectedServices.map((yearProduct) => yearProduct.year);
+  const availableYears = pricingYears
+    .filter((year) => !selectedYears.includes(year))
+    .sort();
   const allSelectedProductsLength = selectedServices.flatMap(
     (y) => y.products
   ).length;

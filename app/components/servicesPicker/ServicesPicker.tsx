@@ -1,7 +1,10 @@
 import { Dispatch, SetStateAction } from "react";
 
+import dynamic from "next/dynamic";
+
 import SectionLabel from "@components/misc/SectionLabel";
-import { Separator } from "@components/Separator";
+import { Separator } from "@components/ui/Separator";
+import { Skeleton } from "@components/ui/Skeleton";
 import { ShopResponse } from "@interfaces/IPricing";
 import {
   findPackagesForYear,
@@ -15,7 +18,16 @@ import ServicesPickerProducts from "./ServicesPickerProducts";
 import ServicesSummaryWithPackages from "./ServicesSummaryWithPackages";
 import RemoveYearAlertDialog from "../RemoveYearAlertDialog";
 import { YearProducts } from "../Services";
-import YearSelect from "../YearSelect";
+
+const Select = dynamic(() => import("react-select"), {
+  ssr: false, //cancelling ssr to prevent hydration error (on the library side)
+  loading: () => <Skeleton className="h-10 w-24" />,
+});
+
+type SelectOption = {
+  label: string;
+  value: number;
+};
 
 export const ServicesPicker = ({
   pricelist,
@@ -40,6 +52,13 @@ export const ServicesPicker = ({
   const selectedYearPrices = pricelist.pricing.find(
     (y) => y.year === selectedYear
   )?.prices;
+  const selectYearOptions = [selectedYear, ...availableYears]
+    .sort()
+    .map((a) => ({ value: a, label: a.toString() } satisfies SelectOption));
+  const selectYearDefaultValue = {
+    label: selectedYear.toString(),
+    value: selectedYear,
+  } satisfies SelectOption;
 
   const packages = findPackagesForYear({
     selectedYear,
@@ -64,14 +83,19 @@ export const ServicesPicker = ({
   };
 
   if (!selectedYearPrices || !selectedProductIDs || !summary) return null;
+
   return (
     <div className="flex flex-1 flex-col gap-y-4 w-full">
       <div className="flex gap-y-2 w-full items-center justify-between">
         <SectionLabel>{"Year of services"}</SectionLabel>
-        <YearSelect
-          onValueChange={onValueChange}
-          value={selectedYear}
-          availableYears={[selectedYear, ...availableYears].sort()}
+        <Select
+          className="text-sm"
+          onChange={(option) => {
+            if (!option) return;
+            onValueChange((option as SelectOption).value);
+          }}
+          defaultValue={selectYearDefaultValue}
+          options={selectYearOptions}
         />
       </div>
       <ServicesPickerProducts
