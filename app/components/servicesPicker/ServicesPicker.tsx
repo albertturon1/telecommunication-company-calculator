@@ -96,6 +96,7 @@ export const ServicesPicker = ({
           }}
           defaultValue={selectYearDefaultValue}
           options={selectYearOptions}
+          isSearchable={false}
         />
       </div>
       <ServicesPickerProducts
